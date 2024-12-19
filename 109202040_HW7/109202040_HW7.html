@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Profile</title>
+  <link rel="stylesheet" href="109202040_HW7.css">
+  <script>
+    // JavaScript for Requirement #1: Editable Name
+    let isEditing = false;
+
+    function toggleEdit() {
+      const nameElement = document.getElementById('editableName');
+      const button = document.getElementById('editButton');
+
+      if (isEditing) {
+        // Save state: update the name text and toggle back to "edit"
+        const input = document.getElementById('nameInput');
+        nameElement.textContent = input.value;
+        button.textContent = 'Edit';
+        input.remove();
+      } else {
+        // Edit state: replace the name with an input field
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.id = 'nameInput';
+        input.value = nameElement.textContent;
+        nameElement.textContent = '';
+        nameElement.appendChild(input);
+        button.textContent = 'Save';
+      }
+
+      isEditing = !isEditing;
+    }
+
+    // JavaScript for Requirement #2: Add Music
+    function addMusicForm() {
+      const formContainer = document.getElementById('musicFormContainer');
+      formContainer.innerHTML = `
+        <div>
+          <input id="musicLink" type="url" placeholder="Enter music link" required />
+          <input id="musicName" type="text" placeholder="Enter music name" required />
+          <button onclick="submitMusic()">Submit</button>
+        </div>
+      `;
+    }
+
+    function submitMusic() {
+      const link = document.getElementById('musicLink').value;
+      const name = document.getElementById('musicName').value;
+
+      if (!link || !name) {
+        alert('Please fill out all fields.');
+        return;
+      }
+
+      const musicGrid = document.querySelector('.music-grid');
+      const newMusic = document.createElement('a');
+      newMusic.href = link;
+      newMusic.target = '_blank';
+      newMusic.innerHTML = `
+        <img src="images/youtube.png" alt="${name}" />
+        <p>${name}</p>
+      `;
+      musicGrid.appendChild(newMusic);
+
+      // Clear form
+      document.getElementById('musicFormContainer').innerHTML = '';
+    }
+  </script>
+</head>
+<body>
+  <div class="main-container">
+    <!-- Left Panel -->
+    <div class="left-panel">
+      <div class="photo-panel"></div>
+      <div class="text-content">
+        <div class="text-content-inner">
+          <h2 id="editableName">張元彥</h2>
+          <button id="editButton" onclick="toggleEdit()">Edit</button>
+          <h3>About Me</h3>
+          <p>我是張元彥，是政治大學政治學系的學生。</p>
+          <h3>Contact</h3>
+          <p>109202040@nccu.edu.tw</p>
+        </div>
+        <img src="images/logo_en.png" alt="NCCU Logo" class="nccu-logo">
+      </div>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="right-panel">
+      <section>
+        <h2>Education</h2>
+        <div class="education-item">
+          <div class="year">2020 - now</div>
+          <div class="description">政治大學 社會科學院<br>政治學系</div>
+        </div>
+        <div class="education-item">
+          <div class="year">2016 - 2020</div>
+          <div class="description">臺北市立成功高級中學<br>英語會話社</div>
+        </div>
+        <div class="education-item">
+          <div class="year">2013 - 2016</div>
+          <div class="description">辭修高級中學國中部<br>開始對寫程式有興趣</div>
+        </div>
+      </section>
+      <section>
+        <h2>Homework List</h2>
+        <ul>
+          <li><a href="https://github.com/ivan24875118/HW1.git" target="_blank">HW1 - </a>https://github.com/ivan24875118/HW1.git</li>
+          <li><a href="https://github.com/ivan24875118/HW2.git" target="_blank">HW2 - </a>https://github.com/ivan24875118/HW2.git</li>
+          <li><a href="https://github.com/ivan24875118/HW3.git" target="_blank">HW3 - </a>https://github.com/ivan24875118/HW3.git</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Favorite Music</h2>
+        <div id="musicFormContainer"></div>
+        <button onclick="addMusicForm()">Add Music</button>
+        <div class="music-grid">
+          <a href="https://youtu.be/MFqfFUTGp2M?si=Fb4Nm8jwrqhkm_nS">
+            <img src="images/youtube.png" alt="oceanic.">
+            <p>oceanic.</p>
+          </a>
+          <a href="https://youtu.be/n1ntvSxTRZk?si=jVMOhjDTQ6r5P4ca">
+            <img src="images/youtube.png" alt="SZA">
+            <p>SZA</p>
+          </a>
+          <a href="https://youtu.be/lrE8fWHHyW4?si=ZA-q-yDdMY0lKwud">
+            <img src="images/youtube.png" alt="winter _____ .">
+            <p>winter _____ .</p>
+          </a>
+          <a href="https://youtu.be/ZS1uIENR5AY?si=R6HxMbZWOL86Ztar">
+            <img src="images/youtube.png" alt="I Left My Heart">
+            <p>I Left My Heart</p>
+          </a>
+        </div>
+        <p class="note">Note: 這四首歌是我最近在聽的</p>
+      </section>
+    </div>
+  </div>
+</body>
+</html>
